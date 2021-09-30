@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <button onclick="start(getData1());">Get data 1</button>
+    <button onclick="start(getData2());">Get data 2</button>
+    <div id="classification-chart"></div>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="../dist/classifier.js"></script>
+    <script>
+      function getData1() {
+        return [
+          { "country": "US", "company": "Apple", "revenue": "229234" },
+          { "country": "Japan", "company": "Itochu", "revenue": "49732.4" },
+          { "country": "Japan", "company": "Mizuho", "revenue": "32141.8" },
+          { "country": "US", "company": "Microsoft", "revenue": "85320" },
+          { "country": "US", "company": "Google", "revenue": "90272" },
+          { "country": "China", "company": "Baidu", "revenue": "15817.6" },
+          { "country": "Japan", "company": "Rakuten", "revenue": "7528.2" }
+        ];
+      }
+
+      function getData2() {
+        return [
+          { "country": "US", "company": "Berkshire", "revenue": "242137" },
+          { "country": "Japan", "company": "Mitsubishi", "revenue": "68301.4" },
+          { "country": "Japan", "company": "Marubeni", "revenue": "68057.2" },
+          { "country": "Japan", "company": "SMFG", "revenue": "52026" },
+          { "country": "US", "company": "Facebook", "revenue": "40653" },
+          { "country": "US", "company": "Amazon", "revenue": "177866" },
+          { "country": "China", "company": "Tencent", "revenue": "35178.8" },
+          { "country": "China", "company": "Alibaba", "revenue": "37770.8" }
+        ];
+      }
+
+      function start(datapoints) {
+        var myclassifier = classifierjs.classification();
+        myclassifier.init("classification-chart", {
+          selectedDataSet: datapoints, 
+          selectedColumns: ["country", "company", "revenue"]
+        });
+      }
+    </script>
+  </body>
+</html>  

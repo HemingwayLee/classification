@@ -1,6 +1,7 @@
 exports.classification = function() {
   var gColorMap = {};
   var gEleId = null;
+  var gCategoryName = null;
   var gHeight = null;
   var gWidth = null;
   var gSelectedDataSet = null;
@@ -30,6 +31,7 @@ exports.classification = function() {
     }, options);
 
     gEleId = eleId;
+    gCategoryName = options.categoryName;
     gColorMap = options.colorMap;
     gHeight = options.height;
     gWidth = options.width;
@@ -63,7 +65,7 @@ exports.classification = function() {
     var radiusScale = d3.scaleSqrt().domain([1, 250000]).range([10, 100]);
     
     var forceXSplit = d3.forceX(function(d) {
-      if (d.country === "China" || d.country === "US") {
+      if (d[gCategoryName] === "China" || d[gCategoryName] === "US") {
         return (gWidth * .30);
       } else {
         return (gWidth * .70);
@@ -104,12 +106,8 @@ exports.classification = function() {
       })
       .style("fill", function(d) { 
         var returnColor = "black";
-        if (d.country === "US") { 
-          returnColor = "#4e89ae";
-        } else if (d.country === "Japan") {
-          returnColor = "#ed6663";
-        } else if (d.country === "China") {
-          returnColor = "#ffa372";
+        if (d[gCategoryName] in gColorMap) {
+          return gColorMap[d[gCategoryName]]
         }
         
         return returnColor;

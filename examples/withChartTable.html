@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Classification with Chart Table</title>
+  <meta charset="utf-8">
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="../dist/classifier.js"></script>
+  <script type="text/javascript" src="https://unpkg.com/chart-table@1.0.3/dist/charttable.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/chart-table@1.0.3/dist/charttable.min.css"></link>
+</head>
+<body>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum facere voluptas soluta iste possimus, dolorum aliquam alias cupiditate nostrum placeat laudantium, culpa perferendis, laboriosam omnis neque aperiam! Voluptas, necessitatibus, ipsa.</p>
+  <div id="mytable"></div>
+  <div id="classification-chart"></div>
+  <script>
+    const mytable = charttable.table();
+    var myclassifier = classifierjs.classification();
+    const tol_vibrant = ["#EE7733", "#0077BB", "#33BBEE", "#EE3377", "#CC3311", "#009988"];
+    mytable.initTbl(document.getElementById("mytable"), {
+      colors: tol_vibrant,
+      minSelectedRow2Show: 4,
+      minSelectedCol2Show: 3,
+      height: 540,
+      onSelect: function(data) {
+        myclassifier.init("classification-chart", {
+          colorMap: data.selectedColorMap,
+          selectedDataSet: data.selectedRows, 
+          selectedColumns: data.selectedColumns,
+          categoryName: "country"
+        });
+      }
+    });
+
+    mytable.showDataset([
+      { "company": "Berkshire", "revenue": "242137", "country": "US" },
+      { "company": "Mitsubishi", "revenue": "68301.4", "country": "Japan" },
+      { "company": "Marubeni", "revenue": "68057.2", "country": "Japan" },
+      { "company": "SMFG", "revenue": "52026", "country": "Japan" },
+      { "company": "Facebook", "revenue": "40653", "country": "US" },
+      { "company": "Amazon", "revenue": "177866", "country": "US" },
+      { "company": "Tencent", "revenue": "35178.8", "country": "China" },
+      { "company": "Alibaba", "revenue": "37770.8", "country": "China" },
+      { "company": "Apple", "revenue": "229234", "country": "US" },
+      { "company": "Itochu", "revenue": "49732.4", "country": "Japan" },
+      { "company": "Mizuho", "revenue": "32141.8", "country": "Japan" },
+      { "company": "Microsoft", "revenue": "85320", "country": "US", },
+      { "company": "Google", "revenue": "90272", "country": "US", },
+      { "company": "Baidu", "revenue": "15817.6", "country": "China" },
+      { "company": "Rakuten", "revenue": "7528.2", "country": "Japan" }
+    ], null);
+  </script>
+</body>
+</html>
